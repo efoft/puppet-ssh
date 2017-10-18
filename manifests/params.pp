@@ -25,19 +25,19 @@ class ssh::params {
     }
   }
   $selinux             = $facts['os']['selinux']['enabled']
-  $port                = '22'
+  $port                = 22
   $addressfamily       = 'any' # can be any, inet, inet6
   $listenaddress       = ['0.0.0.0', '::']
   $syslogfacility      = 'AUTHPRIV'
   $sshloglevel         = 'INFO'
   $permitrootlogin     = 'yes'
-  $maxauthtries        = '6'
+  $maxauthtries        = 6
   $passwordauth        = 'yes'
   $kerberosauth        = 'no'
   $challrespauth       = 'no'
   $gssapiauth          = 'no'
   $x11forwarding       = 'yes'
-  $clientaliveinterval = '3'
-  $clientalivecountmax = '0'
+  $clientaliveinterval = 3
+  $clientalivecountmax = 0
   $usedns              = 'yes'
 }

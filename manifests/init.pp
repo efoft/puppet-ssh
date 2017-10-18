@@ -1,23 +1,33 @@
+# === Class ssh ===
+# Installs client & server ssh packages and set up the configuration.
+# For non-standard (22) port it allows its usage in SELinux.
+#
+# === Parameters ===
+# [*selinux*]
+# If true and port is non-standard, then usage of this port is allowed via semanage.
+#
+# All the rest params are normal sshd config params described in man.
 #
 class ssh (
-  $selinux             = $ssh::params::selinux,
-  $addressfamily       = $ssh::params::addressfamily,
-  $listenaddress       = $ssh::params::listenaddress,
-  $hostkeys            = $ssh::params::hostkeys,
-  $ciphers             = undef,
-  $macs                = undef,
-  $syslogfacility      = $ssh::params::syslogfacility,
-  $sshloglevel         = $ssh::params::sshloglevel,
-  $permitrootlogin     = $ssh::params::permitrootlogin,
-  $maxauthtries        = $ssh::params::maxauthtries,
-  $passwordauth        = $ssh::params::passwordauth,
-  $kerberosauth        = $ssh::params::kerberosauth,
-  $challrespauth       = $ssh::params::challrespauth,
-  $gssapiauth          = $ssh::params::gssapiauth,
-  $x11forwarding       = $ssh::params::x11forwarding,
-  $clientaliveinterval = $ssh::params::clientaliveinterval,
-  $clientalivecountmax = $ssh::params::clientalivecountmax,
-  $usedns              = $ssh::params::usedns,
+  Boolean $selinux                                 = $ssh::params::selinux,
+  Numeric $port                                    = $ssh::params::port,
+  Enum['any','inet','inet6'] $addressfamily        = $ssh::params::addressfamily,
+  Array[Stdlib::Compat::Ip_address] $listenaddress = $ssh::params::listenaddress,
+  Array[String] $hostkeys                          = $ssh::params::hostkeys,
+  Optional[Array] $ciphers                         = undef,
+  Optional[Array] $macs                            = undef,
+  String $syslogfacility                           = $ssh::params::syslogfacility,
+  String $sshloglevel                              = $ssh::params::sshloglevel,
+  Enum['yes','no'] $permitrootlogin                = $ssh::params::permitrootlogin,
+  Numeric $maxauthtries                            = $ssh::params::maxauthtries,
+  Enum['yes','no'] $passwordauth                   = $ssh::params::passwordauth,
+  Enum['yes','no'] $kerberosauth                   = $ssh::params::kerberosauth,
+  Enum['yes','no'] $challrespauth                  = $ssh::params::challrespauth,
+  Enum['yes','no'] $gssapiauth                     = $ssh::params::gssapiauth,
+  Enum['yes','no'] $x11forwarding                  = $ssh::params::x11forwarding,
+  Numeric $clientaliveinterval                     = $ssh::params::clientaliveinterval,
+  Numeric $clientalivecountmax                     = $ssh::params::clientalivecountmax,
+  Enum['yes','no'] $usedns                         = $ssh::params::usedns,
 ) inherits ssh::params {
 
   package { [
@@ -38,7 +48,7 @@ class ssh (
     notify  => Service[$ssh::params::service_name],
   }
 
-  if $port != '22' and $selinux {
+  if $port != 22 and $selinux {
     ensure_packages($ssh::params::policy_package_name, { 'ensure' => 'present' })
 
     exec { "change-ssh-port-to-${port}":

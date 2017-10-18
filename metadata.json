@@ -1,11 +1,11 @@
 {
         "name": "efoft-ssh",
-        "version": "0.1.0",
+        "version": "1.0.0",
         "author": "efoft",
         "license": "Apache-2.0",
         "source": "https://github.com/efoft/puppet-ssh.git",
         "dependencies": [
-                { "name": "puppetlabs/stdlib" }
+                { "name": "puppetlabs/stdlib", "version_requirement":">=4.17.1 < 5.0.0" }
         ],
         "data_provider": "hiera",
         "operatingsystem_support": [
@@ -30,5 +30,5 @@
             "version_requirement": ">= 4.5.0 < 5.0.0"
           }
         ],
-        "description": "Manages fail2ban package and jails."
+        "description": "Installs latest ssh server and client packages and configures the server."
 }
