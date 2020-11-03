@@ -16,6 +16,8 @@ class ssh (
   Array[String] $hostkeys                              = $ssh::params::hostkeys,
   Optional[Array] $ciphers                             = undef,
   Optional[Array] $macs                                = undef,
+  Optional[Array] $hostkeyalgorithms                   = undef,
+  Optional[Array] $keyalgorithms                       = undef,
   String $syslogfacility                               = $ssh::params::syslogfacility,
   String $sshloglevel                                  = $ssh::params::sshloglevel,
   Enum['yes','no','without-password'] $permitrootlogin = $ssh::params::permitrootlogin,

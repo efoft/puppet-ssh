@@ -46,6 +46,12 @@ Ciphers <%= @ciphers.join(',') %>
 <% if @macs -%>
 MACs <%= @macs.join(',') %>
 <% end -%>
+<% if @hostkeyalgorithms -%>
+HostKeyAlgorithms <%= @hostkeyalgorithms.join(',') %>
+<% end -%>
+<% if @keyalgorithms -%>
+KexAlgorithms <%= @keyalgorithms.join(',') %>
+<% end -%>
 
 # Logging
 # obsoletes QuietMode and FascistLogging
