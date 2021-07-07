@@ -1,6 +1,6 @@
 {
         "name": "efoft-ssh",
-        "version": "1.0.3",
+        "version": "1.0.4",
         "author": "efoft",
         "license": "Apache-2.0",
         "source": "https://github.com/efoft/puppet-ssh.git",
